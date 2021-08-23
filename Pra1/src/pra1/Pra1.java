@@ -1,5 +1,6 @@
 package pra1;
 //IMPORTAR LAS LIBRERIAS CORRESPONDIENTES
+import java.util.Random;
 import java.util.Scanner;
 
 //CLASE PRINCIPAL LA CUAL DESDE AQUI INICIA TODO EL PROCESO DEL PROGRAMA
@@ -13,6 +14,8 @@ public class Pra1 {
 }
 //Clase donde se desarrollará el programa
 class programap{
+    static int[][] tablero;
+    static int[][] penalizaciones;
     //Procedimiento donde se ejecutara el menu principal
     public void menu(){
         //Se manda a llamar a la libreria Scanner
@@ -20,13 +23,19 @@ class programap{
         //Se inicializa la variable que va a leer las opciones del menu principal
         int opcion=0;
         //Se imprime el Título del juego
-        System.out.println("============================================");
-        System.out.println("=========== ESCALERAS MATEMÁTICAS ==========");
-        System.out.println("==         =======================        ==");
+        System.out.println("    ______                __                        __  ___      __                       __  _                \n" +
+"   / ____/_____________ _/ /__  _________ ______   /  |/  /___ _/ /____  ____ ___  ____ _/ /_(_)________ ______\n" +
+"  / __/ / ___/ ___/ __ `/ / _ \\/ ___/ __ `/ ___/  / /|_/ / __ `/ __/ _ \\/ __ `__ \\/ __ `/ __/ / ___/ __ `/ ___/\n" +
+" / /___(__  ) /__/ /_/ / /  __/ /  / /_/ (__  )  / /  / / /_/ / /_/  __/ / / / / / /_/ / /_/ / /__/ /_/ (__  ) \n" +
+"/_____/____/\\___/\\__,_/_/\\___/_/   \\__,_/____/  /_/  /_/\\__,_/\\__/\\___/_/ /_/ /_/\\__,_/\\__/_/\\___/\\__,_/____/");
+        //System.out.println("============================================");
+        //System.out.println("=========== ESCALERAS MATEMÁTICAS ==========");
+        //System.out.println("==         =======================        ==");
         //Se usa un do-while para que el menu se ejecute varias veces
         do {
             //
             try{
+                
                 System.out.println("===========     MENÚ PRINCIPAL    ==========");
                 System.out.println("== 1. Iniciar Juego                       ==");
                 System.out.println("== 2. Reanudar Juego                      ==");
@@ -68,85 +77,99 @@ class programap{
     
     //Procedimiento para generar el tablero
     public void tablero(){
-        //Se genera este for para que genere la fila de abajo hacia arriba
-        for (int i = 16-1; i >=0; i--) {
-            //Salto de linea para saltar a la siguiente fila
-            System.out.println("");
-            //Si el numero de fila es par entonces solo muestre en esa columna unicamente espacios
-            if (i % 2 == 0) {
-                //En todas las columnas va a imprimir espacios
-                for (int j = 0; j < 8; j++) {
-                        //System.out.print("[" + i + "," + j + "] = "  + (j+1) + " | ");
-                        //System.out.print(((j + 1) + (8 * i)) + " | ");
-                        System.out.print("   |");
+        tablero = new int[8][8];
+        penalizaciones = new int[8][8];
+        
+        int contador = 1;
+        boolean izquierda = false;
+        for (int i = 8-1; i >=0; i--) {
+            if (izquierda) {
+                for (int j = 0; j <tablero[i].length ; j++) {
+                    tablero[i][j]= contador;
+                    contador++;
                 }
-                System.out.println("");
-                System.out.print("--------------------------------");
             }else{
-                //De lo contrario por medio del switch se ejecutara el orden de los numeros en cada columna
-                switch(i){
-                    case 1:
-                        //En la primera fila sera de izquierda a derecha
-                        for (int j = 8 - 1; j >= 0; j--) {
-                            //System.out.print("[" + i + "," + j + "] = "  + (j+1) + " | ");
-                            System.out.print(((j + 1) + (8 * (i-1))) + "  |");
-                        }
-                        break;
-                    case 3:
-                        //En la segunda fila se ejecuta de derecha a izquierda
-                        for (int j = 0; j < 8; j++) {
-                            //System.out.print("[" + i + "," + j + "] = " + (j+1) + " | ");
-                            if (((j + 1) + (8 * (i-2)))==9) {
-                                System.out.print(((j + 1) + (8 * (i-2))) + "  |");
-                            }else{
-                                System.out.print(((j + 1) + (8 * (i-2))) + " |");
-                            }                            
-                        }
-                        break;
-                    case 5:
-                        //En la tercera fila se ejecutara de izquierda a derecha
-                        for (int j = 8 - 1; j >= 0; j--) {
-                            //System.out.print("[" + i + "," + j + "] = "  + (j+1) + " | ");
-                            System.out.print(((j + 1) + (8 * (i-3))) + " |");
-                        }
-                        break;
-                    case 7:
-                        //En la cuarta fila se ejecutara de derecha a izquierda
-                        for (int j = 0; j < 8; j++) {
-                            //System.out.print("[" + i + "," + j + "] = " + (j+1) + " | ");
-                            System.out.print(((j + 1) + (8 * (i-4))) + " |");
-                        }
-                        break;
-                    case 9:
-                        //En la quinta fila se ejecutara de izquierda a derecha
-                        for (int j = 8 - 1; j >= 0; j--) {
-                            //System.out.print("[" + i + "," + j + "] = "  + (j+1) + " | ");
-                            System.out.print(((j + 1) + (8 * (i-5))) + " |");
-                        }
-                        break;
-                    case 11:
-                        //En la sexta fila se ejecutara de derecha a izquierda
-                        for (int j = 0; j < 8; j++) {
-                            //System.out.print("[" + i + "," + j + "] = " + (j+1) + " | ");
-                            System.out.print(((j + 1) + (8 * (i-6))) + " |");
-                        }
-                        break;
-                    case 13:
-                        //En la septima fila se ejecutara de izquierda a derecha
-                        for (int j = 8 - 1; j >= 0; j--) {
-                            //System.out.print("[" + i + "," + j + "] = "  + (j+1) + " | ");
-                            System.out.print(((j + 1) + (8 * (i-7))) + " |");
-                        }
-                        break;
-                    case 15:
-                        //Por ultimo en la octava fila se ejecutara de derecha a izquierda
-                        for (int j = 0; j < 8; j++) {
-                            //System.out.print("[" + i + "," + j + "] = " + (j+1) + " | ");
-                            System.out.print(((j + 1) + (8 * (i-8))) + " |");
-                        }
-                        break;
+                for (int j = tablero[i].length-1; j >=0 ; j--) {
+                    tablero[i][j]= contador;
+                    contador++;
                 }
-            }                       
+                
+            }
+            izquierda = !izquierda;
         }
+        /*
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                System.out.print("\t|" + tablero[i][j]);
+                
+            }  
+            System.out.println("");
+        }
+        */
+        Random rd = new Random();
+        int p;
+        for (int i = 8-1; i >=0; i--) {
+            if (izquierda) {
+                for (int j = 0; j <penalizaciones[i].length ; j++) {
+                    if (rd.nextBoolean()==true) {
+                        p = 1;
+                    }else{
+                        p=0;
+                    }
+                    penalizaciones[i][j]=p;
+                }
+            }else{
+                for (int j = penalizaciones[i].length-1; j >=0 ; j--) {
+                    if (rd.nextBoolean()==true) {
+                        p = 1;
+                    }else{
+                        p=0;
+                    }
+                    penalizaciones[i][j]=p;
+                }
+                
+            }
+            izquierda = !izquierda;
+        }
+        /*
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                System.out.print("\t|" + penalizaciones[i][j]);
+                
+            }  
+            System.out.println("");
+        }
+        System.out.println("-----------------------");
+        */
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (penalizaciones[i][j]==1) {
+                    System.out.print("# " + tablero[i][j] + "\t|");
+                }else{
+                    System.out.print("  " + tablero[i][j] + "\t|");
+                }
+            }  
+            System.out.println("");
+        }
+        Scanner sc = new Scanner(System.in);
+        System.out.println("¿Que quieres hacer?");
+        System.out.println("1. Tirar el dado");
+        System.out.println("2. Pausa");
+        int o = sc.nextInt();
+        if (o == 1) {
+            System.out.println("Dado: " + Dado());
+        }else if (o == 2) {
+            
+        }else{
+            System.out.println("INGRESE LA OPCION CORRECTA");
+        }
+        
+    }
+    //FUNCION PARA QUE TIRE UN NUMERO ALEATORIO ENTRE 2 Y 6
+    public int Dado(){
+        Random r = new Random();
+        //int dado = 2;
+        int dado = 2+r.nextInt((6-2)+1);
+        return dado;
     }
 }

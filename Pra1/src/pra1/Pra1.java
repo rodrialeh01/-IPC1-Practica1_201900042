@@ -195,7 +195,7 @@ class programap{
         return dado;
     }
     
-    
+    //------------------------------------------- PENALIZACIONES ----------------------------------------------
     //-----------------------------------------PENALIZACIÓN FACIL-------------------------------------
     //METODO PARA EL MENU DE LA PENALIZACION FACIL
     public void penalizacionfacil(){
@@ -728,7 +728,638 @@ class programap{
                 }
                 break;
         }
-        
     }
     
+    
+    //-----------------------------------------PENALIZACIÓN DÍFICIL-------------------------------------
+    //METODO PARA EL MENU DE LA PENALIZACION DÍFICIL    
+    public static void penalizaciondificil() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("=================================================");
+        System.out.println("===         PENALIZACIÓN DÍFICIL              ===");
+        System.out.println("=== Elige una opción:                         ===");
+        System.out.println("=== 1. OPCION A                               ===");
+        System.out.println("=== 2. OPCION B                               ===");
+        System.out.println("=== 3. OPCION C                               ===");
+        System.out.println("=================================================");
+        int opcion = sc.nextInt();
+        switch (opcion) {
+            case 1:
+                opcionad();
+                break;
+            case 2:
+                opcionbd();
+                break;
+            case 3:
+                opcioncd();
+                break;
+        }
+    }
+    
+    //METODO PARA LA OPCION A DE LA PENALIZACION DÍFICIL
+    public static void opcionad() {
+        //MATRICES A Y B DEFINIDAS
+        double[][] matriza = {{5, 10, 1, 3}, {9, 14, 2, 6}, {7, 8, 15, 3}, {6, 8, 9, 2}};
+        double[][] matrizb = {{5, 13, 9, 4}, {1, 9, 6, 3}, {8, 11, 69, 33}, {25, 6, 7, 4}};
+        //MATRIZ INGRESADA POR EL USUARIO
+        double[][] matriziu = new double[4][4];
+        //MATRIZ RESULTADO
+        double[][] matrizr = new double[4][4];
+        //MATRIZ IDENTIDAD E INVERSA
+        double[][] matrizi = new double[4][4];
+        double pivote, extremos;
+        Scanner leer = new Scanner(System.in);
+
+        //MOSTRANDO LA INFORMACION EN LA PANTALLA PARA EL USUARIO
+        System.out.println("=================================================");
+        System.out.println("===  Obten la División de las Matrices A y B  ===");
+        System.out.println("===                 (A/B)                     ===");
+        System.out.println("=== ¿Cómo se calcula?                         ===");
+        System.out.println("=== La división de dos matrices es la         ===");
+        System.out.println("=== multiplicación de una matriz por la matriz===");
+        System.out.println("=== inversa de la matriz divisora             ===");
+        System.out.println("=================================================");
+        System.out.println("=== MATRIZ A                                  ===");
+        System.out.println("");
+        //SE MUESTRA EN PANTALLA LA MATRIZ A
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print(matriza[i][j] + "\t|");
+            }
+            System.out.println("");
+            System.out.println("---------------------------------");
+        }
+        System.out.println("");
+        System.out.println("=================================================");
+        System.out.println("=== MATRIZ B                                  ===");
+        System.out.println("");
+        //SE MUESTRA EN PANTALLA LA MATRIZ B
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print(matrizb[i][j] + "\t|");
+            }
+            System.out.println("");
+            System.out.println("---------------------------------");
+        }
+        
+        //INSTRUCCIONES PARA LA FORMA DE INGRESAR LOS DATOS DEL USUARIO
+        System.out.println("");
+        System.out.println("=================================================");
+        System.out.println("===Ingresa los valores de tu respuesta con lo ===");
+        System.out.println("===que corresponde en lo que se muestra en    ===");
+        System.out.println("===pantalla APROX A TRES DECIMALES Y CON SIGNO:==");
+        System.out.println("=================================================");
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print("[" + i + "," + j + "]" + "\t|");
+            }
+            System.out.println("");
+            System.out.println("---------------------------------");
+        }
+        
+        //SOLICITA LOS DATOS AL USUARIO Y LOS INGRESA A LA MATRIZ
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print("Ingrese el valor de la casilla [" + i + "," + j + "]: ");
+                matriziu[i][j] = leer.nextDouble();
+            }
+        }
+        
+        //MUESTRA LA MATRIZ INGRESADA POR EL USUARIO
+        System.out.println("USTED INGRESÓ ESTA MATRIZ:");
+        System.out.println("");
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print(matriziu[i][j] + "\t|");
+            }
+            System.out.println("");
+            System.out.println("---------------------------------");
+        }
+
+        //---------PROCEDIMIENTO DEL CALCULO EN EL SISTEMA---------
+        //MATRIZ IDENTIDAD DE B
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (i == j) {
+                    matrizi[i][j] = 1;
+                } else {
+                    matrizi[i][j] = 0;
+                }
+            }
+        }
+
+        //SE DEJA COMENTADO COMO ESTAN LAS MATRICES POR EL MOMENTO PARA LOS REPORTES
+        /*
+        //MUESTRA EL PANTALLA LA METRIZ B
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print(matrizb[i][j] + "\t|");
+            }
+            System.out.println("");
+        }
+        //MUESTRA EN PANTALLA LA MATRIZ IDENTIDAD
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print(matrizi[i][j] + "\t|");
+            }
+            System.out.println("");
+        }
+         */
+        
+        //SE APLICA GAUUS JORDAN PARA ENCONTRAR LA MATRIZ INVERSA DE B
+        for (int i = 0; i < 4; i++) {
+            //PASO 1: IDENTIFICAR CUAL ES EL PIVOTE
+            pivote = matrizb[i][i];
+            //PASO 2: CONVERTIR TODOS LOS PIVOTES A 1
+            for (int j = 0; j < 4; j++) {
+                //Se divide toda la fila con el valor del pivote
+                matrizb[i][j] = matrizb[i][j] / pivote;
+                matrizi[i][j] = matrizi[i][j] / pivote;
+            }
+
+            //PASO 3: OPERACIONES ENTRE FILAS
+            for (int k = 0; k < 4; k++) {
+                //SE PONE I SEA DIFERENTE QUE K PARA QUE NO TOQUE LOS 1 DE LA MATRIZ B
+                if (i != k) {
+                    //LOS EXTREMOS SON LOS NUMEROS QUE ESTAN EN LAS COLUMNAS QUE NO FORMAN PARTE DE LOS 1 EN DIAGONAL 
+                    extremos = matrizb[k][i];
+                    for (int j = 0; j < 4; j++) {
+                        //VA A RECORRER TODA LA FILA RESTANDO CON LA FILA DE CADA PIVOTE HASTA FORMAR EN LA MATRIZ B
+                        //COMO LA MATRIZ IDENTIDAD Y LA MATRIZ IDENTIDAD SE TRANSFORMA A LA MATRIZ INVERSA
+                        matrizb[k][j] = matrizb[k][j] - extremos * matrizb[i][j];
+                        matrizi[k][j] = matrizi[k][j] - extremos * matrizi[i][j];
+                    }
+
+                }
+            }
+        }
+        
+        //PARA LOS REPORTES
+        /*        
+        //IMPRIMIR LA MATRIZ INVERSA
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print(matrizi[i][j] +"\t|");
+            }
+            System.out.println("");
+        }
+        */
+        
+        //MULTIPLICACION DE LA MATRIZ INVERSA DE B CON LA MATRIZ A
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                for (int k = 0; k < 4; k++) {
+                    matrizr[i][j] += matriza[i][k] * matrizi[k][j];
+                }
+            }
+        }
+        
+        // IMPRIMIR LA MATRIZ DE RESULTADO A 3 DECIMALES
+        System.out.println("");
+        System.out.println("LA MATRIZ RESUELTA DEL SISTEMA: ");
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print((Math.round(matrizr[i][j] * 1000.0) / 1000.0) + "\t|");
+            }
+            System.out.println("");
+            System.out.println("---------------------------------");
+        }
+        
+        System.out.println("");
+        
+        //COMPARA SI LA MATRIZ HECHA POR EL SISTEMA ES IGUAL A LA MATRIZ INGRESADA POR EL USUARIO
+        boolean correcto = false;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if ((Math.round(matrizr[i][j] * 1000.0) / 1000.0) == matriziu[i][j]) {
+                    correcto = true;
+                } else {
+                    correcto = false;
+                }
+            }
+        }
+        if (correcto == true) {
+            System.out.println("========================");
+            System.out.println("SU RESPUESTA ES CORRECTA");
+        } else {
+            System.out.println("==========================");
+            System.out.println("SU RESPUESTA ES INCORRECTA");
+        }
+    }
+    
+    //METODO PARA LA OPCION B DE LA PENALIZACION DÍFICIL  
+    public static void opcionbd() {
+        //DEFINIENDO LA MATRIZ A
+        double[][] matriza = {{1, 12, 9, 8}, {7, 6, 3, 2}, {0, 5, 6, 14}, {6, 9, 6, 10}};
+        //DEFINIENDO LA MATRIZ B
+        double[][] matrizb = {{8, 19, 20, 4}, {12, 33, 6, 8}, {4, 5, 9, 7}, {8, 22, 14, 6}};
+        //MATRIZ INGRESADA POR EL USUARIO
+        double[][] matriziu = new double[4][4];
+        //MATRIZ DE RESULTADO ( POR EL SISTEMA)
+        double[][] matrizr = new double[4][4];
+        //MATRIZ IDENTIDAD E INVERSA
+        double[][] matrizi = new double[4][4];
+        double pivote, extremos;
+        Scanner leer = new Scanner(System.in);
+
+        //MOSTRANDO LA INFORMACION EN LA PANTALLA PARA EL USUARIO
+        System.out.println("=================================================");
+        System.out.println("===  Obten la División de las Matrices A y B  ===");
+        System.out.println("===                 (A/B)                     ===");
+        System.out.println("=== ¿Cómo se calcula?                         ===");
+        System.out.println("=== La división de dos matrices es la         ===");
+        System.out.println("=== multiplicación de una matriz por la matriz===");
+        System.out.println("=== inversa de la matriz divisora             ===");
+        System.out.println("=================================================");
+        System.out.println("=== MATRIZ A                                  ===");
+        System.out.println("");
+        //SE MUESTRA EN PANTALLA LA MATRIZ A
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print(matriza[i][j] + "\t|");
+            }
+            System.out.println("");
+            System.out.println("---------------------------------");
+        }
+        //SE MUESTRA EN PANTALLA LA MATRIZ B
+        System.out.println("");
+        System.out.println("=================================================");
+        System.out.println("=== MATRIZ B                                  ===");
+        System.out.println("");
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print(matrizb[i][j] + "\t|");
+            }
+            System.out.println("");
+            System.out.println("---------------------------------");
+        }
+        System.out.println("");
+        
+        //DA LAS INSTRUCCIONES DE COMO INGRESAR LOS VALORES DE LA MATRIZ
+        System.out.println("=================================================");
+        System.out.println("===Ingresa los valores de tu respuesta con lo ===");
+        System.out.println("===que corresponde en lo que se muestra en    ===");
+        System.out.println("===pantalla APROX A TRES DECIMALES Y CON SIGNO:==");
+        System.out.println("=================================================");
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print("[" + i + "," + j + "]" + "\t|");
+            }
+            System.out.println("");
+            System.out.println("---------------------------------");
+        }
+        
+        //EL USUARIO INGRESA LOS VALORES DE SU RESPUESTA
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print("Ingrese el valor de la casilla [" + i + "," + j + "]: ");
+                matriziu[i][j] = leer.nextDouble();
+            }
+        }
+        
+        //MUESTRA EN PANTALLA LA MATRIZ INGRESADA POR EL USUARIO
+        System.out.println("USTED INGRESÓ ESTA MATRIZ:");
+        System.out.println("");
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print(matriziu[i][j] + "\t|");
+            }
+            System.out.println("");
+            System.out.println("---------------------------------");
+        }
+
+        //----------PROCEDIMIENTO DEL CALCULO EN EL SISTEMA----------
+        //MATRIZ IDENTIDAD DE B
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (i == j) {
+                    matrizi[i][j] = 1;
+                } else {
+                    matrizi[i][j] = 0;
+                }
+            }
+        }
+
+        //SE DEJA COMENTADO COMO ESTAN LAS MATRICES PARA LOS REPORTES
+        /*
+        //MUESTRA EL PANTALLA LA MATRIZ B
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print(matrizb[i][j] + "\t|");
+            }
+            System.out.println("");
+        }
+        //MUESTRA EN PANTALLA LA MATRIZ IDENTIDAD
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print(matrizi[i][j] + "\t|");
+            }
+            System.out.println("");
+        }
+         */
+        
+        //REALIZA LA OPERACIÓN DE GAUSS JORDAN PARA ENCONTRAR LA MATRIZ IDENTIDAD
+        for (int i = 0; i < 4; i++) {
+            //PASO 1: IDENTIFICAR CUAL ES EL PIVOTE
+            pivote = matrizb[i][i];
+            //PASO 2: CONVERTIR TODOS LOS PIVOTES A 1
+            for (int j = 0; j < 4; j++) {
+                //Se divide toda la fila con el valor del pivote
+                matrizb[i][j] = matrizb[i][j] / pivote;
+                matrizi[i][j] = matrizi[i][j] / pivote;
+            }
+
+            //PASO 3: OPERACIONES ENTRE FILAS
+            for (int k = 0; k < 4; k++) {
+                //SE PONE I SEA DIFERENTE QUE K PARA QUE NO TOQUE LOS 1 DE LA MATRIZ B
+                if (i != k) {
+                    //LOS EXTREMOS SON LOS NUMEROS QUE ESTAN EN LAS COLUMNAS QUE NO FORMAN PARTE DE LOS 1 EN DIAGONAL 
+                    extremos = matrizb[k][i];
+                    for (int j = 0; j < 4; j++) {
+                        //VA A RECORRER TODA LA FILA RESTANDO CON LA FILA DE CADA PIVOTE HASTA FORMAR EN LA MATRIZ B
+                        //COMO LA MATRIZ IDENTIDAD Y LA MATRIZ IDENTIDAD SE TRANSFORMA A LA MATRIZ INVERSA
+                        matrizb[k][j] = matrizb[k][j] - extremos * matrizb[i][j];
+                        matrizi[k][j] = matrizi[k][j] - extremos * matrizi[i][j];
+                    }
+
+                }
+            }
+        }
+
+        /*
+        
+        //IMPRIMIR LA MATRIZ INVERSA
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print(matrizi[i][j] +"\t|");
+            }
+            System.out.println("");
+        }
+         */
+        
+        
+        //MULTIPLICACION DE LA MATRIZ INVERSA CON LA MATRIZ A
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                for (int k = 0; k < 4; k++) {
+                    matrizr[i][j] += matriza[i][k] * matrizi[k][j];
+                }
+            }
+        }
+        
+        // IMPRIMIR LA MATRIZ DE RESULTADO A 3 DECIMALES
+        System.out.println("");
+        System.out.println("LA MATRIZ RESUELTA DEL SISTEMA: ");
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print((Math.round(matrizr[i][j] * 1000.0) / 1000.0) + "\t|");
+            }
+            System.out.println("");
+            System.out.println("---------------------------------");
+        }
+        System.out.println("");
+        
+        //VERIFICA SI LA MATRIZ INGRESADA POR EL USUARIO ES LA MISMA A LA DEL RESULTADO DEL SISTEMA
+        boolean correcto = false;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if ((Math.round(matrizr[i][j] * 1000.0) / 1000.0) == matriziu[i][j]) {
+                    correcto = true;
+                } else {
+                    correcto = false;
+                }
+            }
+        }
+        if (correcto == true) {
+            System.out.println("========================");
+            System.out.println("SU RESPUESTA ES CORRECTA");
+        } else {
+            System.out.println("==========================");
+            System.out.println("SU RESPUESTA ES INCORRECTA");
+        }
+    }
+
+    //METODO PARA LA OPCION C DE LA PENALIZACION DÍFICIL
+    public static void opcioncd() {
+        //SE DEFINE LA MATRIZ A Y B
+        double[][] matriza = {{5, 9, 14, 5}, {6, 0, 5, 3}, {1, 14, 68, 8}, {7, 5, 3, 9}};
+        double[][] matrizb = {{0, 9, 7, 19}, {2, 30, 5, 48}, {1, 31, 2, 5}, {15, 8, 4, 3}};
+        //SE CREA LA MATRIZ INGRESADA POR EL USUARIO
+        double[][] matriziu = new double[4][4];
+        //SE CREA LA MATRIZ RESULTADO
+        double[][] matrizr = new double[4][4];
+        //SE CREA LA MATRIZ IDENTIDAD E INVERSA
+        double[][] matrizi = new double[4][4];
+        double pivote, extremos;
+        Scanner leer = new Scanner(System.in);
+
+        //MOSTRANDO LA INFORMACION EN LA PANTALLA PARA EL USUARIO
+        System.out.println("=================================================");
+        System.out.println("===  Obten la División de las Matrices A y B  ===");
+        System.out.println("===                 (A/B)                     ===");
+        System.out.println("=== ¿Cómo se calcula?                         ===");
+        System.out.println("=== La división de dos matrices es la         ===");
+        System.out.println("=== multiplicación de una matriz por la matriz===");
+        System.out.println("=== inversa de la matriz divisora             ===");
+        System.out.println("=================================================");
+        System.out.println("=== MATRIZ A                                  ===");
+        System.out.println("");
+        //SE MUESTRA LA MATRIZ A
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print(matriza[i][j] + "\t|");
+            }
+            System.out.println("");
+            System.out.println("---------------------------------");
+        }
+        
+        //SE MUESTRA LA MATRIZ B
+        System.out.println("");
+        System.out.println("=================================================");
+        System.out.println("=== MATRIZ B                                  ===");
+        System.out.println("");
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print(matrizb[i][j] + "\t|");
+            }
+            System.out.println("");
+            System.out.println("---------------------------------");
+        }
+        
+        //SE DAN LAS INSTRUCCIONES PARA QUE EL USUARIO INGRESE SUS RESPUESTAS
+        System.out.println("");
+        System.out.println("=================================================");
+        System.out.println("===Ingresa los valores de tu respuesta con lo ===");
+        System.out.println("===que corresponde en lo que se muestra en    ===");
+        System.out.println("===pantalla APROX A TRES DECIMALES Y CON SIGNO:==");
+        System.out.println("=================================================");
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print("[" + i + "," + j + "]" + "\t|");
+            }
+            System.out.println("");
+            System.out.println("---------------------------------");
+        }
+        
+        //EL SISTEMA LE PEDIRA AL USUARIO INGRESAR LOS VALORES DE SU MATRIZ
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print("Ingrese el valor de la casilla [" + i + "," + j + "]: ");
+                matriziu[i][j] = leer.nextDouble();
+            }
+        }
+        
+        //MOSTRARA LA MATRIZ INGRESADA POR EL USUARIO
+        System.out.println("USTED INGRESÓ ESTA MATRIZ:");
+        System.out.println("");
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print(matriziu[i][j] + "\t|");
+            }
+            System.out.println("");
+            System.out.println("---------------------------------");
+        }
+
+        //----------PROCEDIMIENTO DEL CALCULO EN EL SISTEMA----------
+        //MATRIZ IDENTIDAD DE B
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (i == j) {
+                    matrizi[i][j] = 1;
+                } else {
+                    matrizi[i][j] = 0;
+                }
+            }
+        }
+
+        //SE DEJA COMENTADO COMO ESTAN LAS MATRICES PARA LOS REPORTES
+        /*
+        //MUESTRA EL PANTALLA LA MATRIZ B
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print(matrizb[i][j] + "\t|");
+            }
+            System.out.println("");
+        }
+        //MUESTRA EN PANTALLA LA MATRIZ IDENTIDAD
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print(matrizi[i][j] + "\t|");
+            }
+            System.out.println("");
+        }
+         */
+        /*
+        
+        System.out.println("ANTES DEL CAMBIO DE FILAS");
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j != matrizb[0].length; ++j) {
+                System.out.print(matrizb[i][j] + "\t|");
+            }
+            System.out.println("");
+        }
+         */
+ 
+        //CAMBIA LA FILA 1 Y 2 DE LA MATRIZ B Y LA MATRIZ IDENTIDAD
+        double aux;
+        for (int j = 0; j < 4; j++) {
+            aux = matrizb[0][j];
+            matrizb[0][j] = matrizb[1][j];
+            matrizb[1][j] = aux;
+        }
+        
+        for (int j = 0; j < 4; j++) {
+            aux = matrizi[0][j];
+            matrizi[0][j] = matrizi[1][j];
+            matrizi[1][j] = aux;
+        }
+        /*
+        System.out.println("DESPUES DEL CAMBIO DE FILAS");
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j != matrizb[0].length; ++j) {
+                System.out.print(matrizb[i][j] + "\t|");
+            }
+            System.out.println("");
+        }
+         */
+        
+        //HACE EL PROCEDIMIENTO PARA APLICAR GAUSS JORDAN
+        for (int i = 0; i < 4; i++) {
+            //PASO 1: IDENTIFICAR CUAL ES EL PIVOTE
+            pivote = matrizb[i][i];
+            //PASO 2: CONVERTIR TODOS LOS PIVOTES A 1
+            for (int j = 0; j < 4; j++) {
+                //Se divide toda la fila con el valor del pivote
+                matrizb[i][j] = matrizb[i][j] / pivote;
+                matrizi[i][j] = matrizi[i][j] / pivote;
+            }
+
+            //PASO 3: OPERACIONES ENTRE FILAS
+            for (int k = 0; k < 4; k++) {
+                //SE PONE I SEA DIFERENTE QUE K PARA QUE NO TOQUE LOS 1 DE LA MATRIZ B
+                if (i != k) {
+                    //LOS EXTREMOS SON LOS NUMEROS QUE ESTAN EN LAS COLUMNAS QUE NO FORMAN PARTE DE LOS 1 EN DIAGONAL 
+                    extremos = matrizb[k][i];
+                    for (int j = 0; j < 4; j++) {
+                        //VA A RECORRER TODA LA FILA RESTANDO CON LA FILA DE CADA PIVOTE HASTA FORMAR EN LA MATRIZ B
+                        //COMO LA MATRIZ IDENTIDAD Y LA MATRIZ IDENTIDAD SE TRANSFORMA A LA MATRIZ INVERSA
+                        matrizb[k][j] = matrizb[k][j] - extremos * matrizb[i][j];
+                        matrizi[k][j] = matrizi[k][j] - extremos * matrizi[i][j];
+                    }
+
+                }
+            }
+        }
+
+        /*
+        //IMPRIMIR LA MATRIZ INVERSA
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print(matrizi[i][j] + "\t|");
+            }
+            System.out.println("");
+        }
+        */
+        
+        //MULTIPLICACION DE LA MATRIZ INVERSA CON LA MATRIZ A
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                for (int k = 0; k < 4; k++) {
+                    matrizr[i][j] += matriza[i][k] * matrizi[k][j];
+                }
+            }
+        }
+        
+        // IMPRIMIR LA MATRIZ DE RESULTADO A 3 DECIMALES
+        System.out.println("");
+        System.out.println("LA MATRIZ RESUELTA DEL SISTEMA: ");
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                System.out.print((Math.round(matrizr[i][j] * 1000.0) / 1000.0) + "\t|");
+            }
+            System.out.println("");
+            System.out.println("---------------------------------");
+        }
+        System.out.println("");
+        
+        //SE COMPARA SI LA MATRIZ INGRESADA POR EL USUARIO ES LA MISMA QUE LA MATRIZ RESULTADO
+        boolean correcto = false;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if ((Math.round(matrizr[i][j] * 1000.0) / 1000.0) == matriziu[i][j]) {
+                    correcto = true;
+                } else {
+                    correcto = false;
+                }
+            }
+        }
+        if (correcto == true) {
+            System.out.println("========================");
+            System.out.println("SU RESPUESTA ES CORRECTA");
+        } else {
+            System.out.println("==========================");
+            System.out.println("SU RESPUESTA ES INCORRECTA");
+        }
+    }
+
 }

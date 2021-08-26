@@ -281,7 +281,6 @@ class programap{
     //FUNCION PARA RETORNAR UN VALOR ALEATORIO ENTRE 2 Y 6
     public int Dado(){
         Random r = new Random();
-        //int dado = 2;
         int dado = 2+r.nextInt((6-2)+1);
         return dado;
     }
@@ -424,16 +423,12 @@ class programap{
     //-----------------------------------------PENALIZACIÓN FACIL-------------------------------------
     //METODO PARA EL MENU DE LA PENALIZACION FACIL
     public void penalizacionfacil(){
-        int opn = 0;
-        Scanner sc = new Scanner(System.in);
+        Random rf = new Random();
+        int opn = 1+rf.nextInt((3-1)+1);
         System.out.println("=================================================");
-        System.out.println("===         PENALIZACIÓN FÁCIL                ===");
-        System.out.println("=== Elige una opción:                         ===");
-        System.out.println("=== 1. OPCION A                               ===");
-        System.out.println("=== 2. OPCION B                               ===");
-        System.out.println("=== 3. OPCION C                               ===");
+        System.out.println("===     ¡HAS CAIDO EN UNA PENALIZACIÓN!       ===");
+        System.out.println("===             MODALIDAD: FACIL              ===");
         System.out.println("=================================================");
-        opn = sc.nextInt();
         switch (opn) {
             case 1:
                 opcionaf();
@@ -443,9 +438,6 @@ class programap{
                 break;
             case 3:
                 opcioncf();
-                break;
-            default:
-                System.out.println(" INGRESA LA RESPUESTA CORRECTA");
                 break;
         }
     }
@@ -662,16 +654,13 @@ class programap{
    
     //METODO PARA EL MENU DE LA PENALIZACION INTERMEDIA
     public static void penalizacionIntermedia() {
-        int opp = 0;
         Scanner sc = new Scanner(System.in);
+        Random rf = new Random();
+        int opp = 1+rf.nextInt((3-1)+1);
         System.out.println("=================================================");
-        System.out.println("===         PENALIZACIÓN INTERMEDIA           ===");
-        System.out.println("=== Elige una opción:                         ===");
-        System.out.println("=== 1. OPCION A                               ===");
-        System.out.println("=== 2. OPCION B                               ===");
-        System.out.println("=== 3. OPCION C                               ===");
+        System.out.println("===     ¡HAS CAIDO EN UNA PENALIZACIÓN!       ===");
+        System.out.println("===          MODALIDAD: INTERMEDIA            ===");
         System.out.println("=================================================");
-        opp = sc.nextInt();
         switch (opp) {
             //CASO PARA RESOLVER EL PROBLEMA INTERMEDIO DE LA OPCION A
             case 1:
@@ -968,10 +957,6 @@ class programap{
                 }
                 System.out.println("");
                 break;
-            default:
-                System.out.println(" INGRESE LA OPCION CORRECTA ");
-                System.out.println("");
-                break;
         }
 
     }
@@ -980,16 +965,12 @@ class programap{
     //-----------------------------------------PENALIZACIÓN DÍFICIL-------------------------------------
     //METODO PARA EL MENU DE LA PENALIZACION DÍFICIL    
     public static void penalizaciondificil() {
-        int opc = 0;
-        Scanner sc = new Scanner(System.in);
+        Random rf = new Random();
+        int opc = 1+rf.nextInt((3-1)+1);
         System.out.println("=================================================");
-        System.out.println("===         PENALIZACIÓN DÍFICIL              ===");
-        System.out.println("=== Elige una opción:                         ===");
-        System.out.println("=== 1. OPCION A                               ===");
-        System.out.println("=== 2. OPCION B                               ===");
-        System.out.println("=== 3. OPCION C                               ===");
+        System.out.println("===     ¡HAS CAIDO EN UNA PENALIZACIÓN!       ===");
+        System.out.println("===            MODALIDAD: DÍFCIL              ===");
         System.out.println("=================================================");
-        opc = sc.nextInt();
         switch (opc) {
             case 1:
                 opcionad();
@@ -999,10 +980,6 @@ class programap{
                 break;
             case 3:
                 opcioncd();
-                break;
-            default:
-                System.out.println(" INGRESA LA OPCION CORRECTA");
-                System.out.println("");
                 break;
         }
     }

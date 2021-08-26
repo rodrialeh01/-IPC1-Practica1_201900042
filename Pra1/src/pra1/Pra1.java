@@ -32,7 +32,7 @@ class programap{
         do {
             //
             try{
-                
+                System.out.println("============================================");                
                 System.out.println("===========     MENÚ PRINCIPAL    ==========");
                 System.out.println("== 1. Iniciar Juego                       ==");
                 System.out.println("== 2. Reanudar Juego                      ==");
@@ -182,9 +182,28 @@ class programap{
                 int x = Integer.parseInt(coordenadas[0]);
                 int y = Integer.parseInt(coordenadas[1]);
                 //SI EL TABLERO NO PASA DE 64 ENTONCES QUE VAYA MOVIENDOSE LA FICHA
-                if (y<8) {
+                if (y < 8) {
                     //IMPRIME LA FICHA
                     movimiento[x][y] = "@";
+                    for (int i = 0; i < 8; i++) {
+                        for (int j = 0; j < 8; j++) {
+                            // IMPRIMIR LAS PENALIZACIONES
+                            if (penalizaciones[i][j] == 1) {
+                                System.out.print("# " + tablero[i][j] + "\t|");
+                            } else {
+                                System.out.print("  " + tablero[i][j] + "\t|");
+                            }
+
+                        }
+                        System.out.println("");
+                        // IMPRIMIR LA MATRIZ DE MOVIMIENTOS
+                        for (int j = 0; j < 8; j++) {
+
+                            System.out.print(movimiento[i][j] + "\t|");
+                        }
+                        System.out.println("");
+                        System.out.println("-----------------------------------------------------------------");
+                    }
                     //----VALIDACION DE LA POSICION DE LA FICHA CON LAS PENALIZACIONES----
                     for (int i = 0; i < 8; i++) {
                         for (int j = 0; j < penalizaciones[i].length; j++) {
@@ -215,12 +234,30 @@ class programap{
                                     }
                                     
                                 }
-                            }
-                            
+                            }                            
                         }
                     }
                 }else{
                     //SI SUPERA AL TAMAÑO DEL TABLERO ENTONCES SE FINALIZA EL JUEGO
+                    for (int i = 0; i < 8; i++) {
+                        for (int j = 0; j < 8; j++) {
+                            // IMPRIMIR LAS PENALIZACIONES
+                            if (penalizaciones[i][j] == 1) {
+                                System.out.print("# " + tablero[i][j] + "\t|");
+                            } else {
+                                System.out.print("  " + tablero[i][j] + "\t|");
+                            }
+
+                        }
+                        System.out.println("");
+                        // IMPRIMIR LA MATRIZ DE MOVIMIENTOS
+                        for (int j = 0; j < 8; j++) {
+
+                            System.out.print("" + "\t|");
+                        }
+                        System.out.println("");
+                        System.out.println("-----------------------------------------------------------------");
+                    }
                     System.out.println("FIN DEL JUEGO");
                     break;                
                 }
@@ -228,25 +265,7 @@ class programap{
                 System.out.println("");
             }            
             
-            for (int i = 0; i < 8; i++) {
-                for (int j = 0; j < 8; j++) {
-                    // IMPRIMIR LAS PENALIZACIONES
-                    if (penalizaciones[i][j] == 1) {
-                        System.out.print("# " + tablero[i][j] + "\t|");
-                    } else {
-                        System.out.print("  " + tablero[i][j] + "\t|");
-                    }
-
-                }
-                System.out.println("");
-                // IMPRIMIR LA MATRIZ DE MOVIMIENTOS
-                for (int j = 0; j < 8; j++) {
-                    
-                    System.out.print(movimiento[i][j] + "\t|");
-                }
-                System.out.println("");
-                System.out.println("-----------------------------------------------------------------");
-            }
+            
         } while (o == 1 || o != 2);        
     }
      
@@ -396,6 +415,7 @@ class programap{
     //-----------------------------------------PENALIZACIÓN FACIL-------------------------------------
     //METODO PARA EL MENU DE LA PENALIZACION FACIL
     public void penalizacionfacil(){
+        int opn = 0;
         Scanner sc = new Scanner(System.in);
         System.out.println("=================================================");
         System.out.println("===         PENALIZACIÓN FÁCIL                ===");
@@ -404,8 +424,8 @@ class programap{
         System.out.println("=== 2. OPCION B                               ===");
         System.out.println("=== 3. OPCION C                               ===");
         System.out.println("=================================================");
-        int opcion = sc.nextInt();
-        switch(opcion){
+        opn = sc.nextInt();
+        switch (opn) {
             case 1:
                 opcionaf();
                 break;
@@ -415,7 +435,10 @@ class programap{
             case 3:
                 opcioncf();
                 break;
-        }        
+            default:
+                System.out.println(" INGRESA LA RESPUESTA CORRECTA");
+                break;
+        }
     }
     
     //METODO PARA LA OPCION A DE LA PENALIZACION FACIL
@@ -461,6 +484,7 @@ class programap{
             System.out.println("    LADO B: " + (Math.round(b1*1000.0)/1000.0));
             System.out.println("    ANGULO ENTRE B Y C: " + ((Math.round(beta1*1000.0)/1000.0)));
             System.out.println("    ANGULO ENTRE A Y B: " + ((Math.round(gama1*1000.0)/1000.0)));
+            System.out.println("");
         }else{
             System.out.println("=============");
             System.out.println("ES INCORRECTO");
@@ -474,6 +498,7 @@ class programap{
             System.out.println("    LADO B: " + (Math.round(b1*1000.0)/1000.0));
             System.out.println("    ANGULO ENTRE B Y C: " + ((Math.round(beta1*1000.0)/1000.0)));
             System.out.println("    ANGULO ENTRE A Y B: " + ((Math.round(gama1*1000.0)/1000.0)));
+            System.out.println("");
         }
     }
     
@@ -520,6 +545,7 @@ class programap{
             System.out.println("    LADO A: " + (Math.round(a2*1000.0)/1000.0));
             System.out.println("    ANGULO ENTRE A Y C: " + ((Math.round(alpha2*1000.0)/1000.0)));
             System.out.println("    ANGULO ENTRE A Y B: " + ((Math.round(gama2*1000.0)/1000.0)));
+            System.out.println("");
         }else{
             System.out.println("=============");
             System.out.println("ES INCORRECTO");
@@ -533,6 +559,7 @@ class programap{
             System.out.println("    LADO A: " + (Math.round(a2*1000.0)/1000.0));
             System.out.println("    ANGULO ENTRE A Y C: " + ((Math.round(alpha2*1000.0)/1000.0)));
             System.out.println("    ANGULO ENTRE A Y B: " + ((Math.round(gama2*1000.0)/1000.0)));
+            System.out.println("");
         }
     }
     
@@ -579,6 +606,7 @@ class programap{
             System.out.println("    LADO B: " + (Math.round(c3*1000.0)/1000.0));
             System.out.println("    ANGULO ENTRE A Y C: " + ((Math.round(alpha3*1000.0)/1000.0)));
             System.out.println("    ANGULO ENTRE B Y C: " + ((Math.round(beta3*1000.0)/1000.0)));
+            System.out.println("");
         }else{
             System.out.println("=============");
             System.out.println("ES INCORRECTO");
@@ -592,6 +620,7 @@ class programap{
             System.out.println("    LADO B: " + (Math.round(c3*1000.0)/1000.0));
             System.out.println("    ANGULO ENTRE A Y C: " + ((Math.round(alpha3*1000.0)/1000.0)));
             System.out.println("    ANGULO ENTRE B Y C: " + ((Math.round(beta3*1000.0)/1000.0)));
+            System.out.println("");
         }
     }
     
@@ -621,9 +650,10 @@ class programap{
     static int[][] mbi3 = {{78,25,66,48,98},{0,45,2,3,1},{2,9,14,10,20},{35,87,65,2,32},{25,8,4,9,39}};
     //MATRIZ INGRESADO Y RESULTADO
     static int[][] mri3, mri3c;
-    
+   
     //METODO PARA EL MENU DE LA PENALIZACION INTERMEDIA
-    public static void penalizacionIntermedia(){
+    public static void penalizacionIntermedia() {
+        int opp = 0;
         Scanner sc = new Scanner(System.in);
         System.out.println("=================================================");
         System.out.println("===         PENALIZACIÓN INTERMEDIA           ===");
@@ -632,8 +662,8 @@ class programap{
         System.out.println("=== 2. OPCION B                               ===");
         System.out.println("=== 3. OPCION C                               ===");
         System.out.println("=================================================");
-        int opcion = sc.nextInt();
-        switch(opcion){
+        opp = sc.nextInt();
+        switch (opp) {
             //CASO PARA RESOLVER EL PROBLEMA INTERMEDIO DE LA OPCION A
             case 1:
                 System.out.println("=================================================");
@@ -659,18 +689,18 @@ class programap{
                     }
                     System.out.println("\n-----------------------------------------");
                 }
-                
+
                 //SE IMPRIME EN PANTALLA LA FORMA DE INGRESAR LOS DATOS DE LA MATRIZ DEL USUARIO
                 System.out.println("");
                 System.out.println("=================================================");
                 System.out.println("===Ingresar el resultado de la siguiente forma con lo que le piden:===");
                 for (int i = 0; i < 5; i++) {
                     for (int j = 0; j < 5; j++) {
-                        System.out.print("["+ i + ","+j+"]" + "\t|");
+                        System.out.print("[" + i + "," + j + "]" + "\t|");
                     }
                     System.out.println("\n-----------------------------------------");
                 }
-                
+
                 //SE LE SOLICITA AL USUARIO INGRESAR LOS DATOS PARA COLOCARLOS EN LA MATRIZ
                 mri1 = new int[5][5];
                 for (int i = 0; i < 5; i++) {
@@ -679,7 +709,7 @@ class programap{
                         mri1[i][j] = sc.nextInt();
                     }
                 }
-                
+
                 //LE MUESTRA AL USUARIO LA MATRIZ QUE INGRESÓ
                 System.out.println("====================================");
                 System.out.println("SU MATRIZ ES: ");
@@ -689,7 +719,7 @@ class programap{
                     }
                     System.out.println("");
                 }
-                
+
                 //EL PROGRAMA REALIZA EL CALCULO DE LA SUMA DE MATRICES
                 mri1c = new int[5][5];
                 for (int i = 0; i < 5; i++) {
@@ -697,29 +727,29 @@ class programap{
                         mri1c[i][j] = mai1[i][j] + mbi1[i][j];
                     }
                 }
-                
+
                 //VERIFICA SI LA MATRIZ INGRESADA POR EL USUARIO ES LA MISMA QUE LA DEL SISTEMA Y SI ES CORRECTO SERA VERDADERO SINO SERA FALSO
                 boolean correctoi1 = false;
                 for (int i = 0; i < 5; i++) {
                     for (int j = 0; j < 5; j++) {
                         if (mri1[i][j] == mri1c[i][j]) {
                             correctoi1 = true;
-                        }else{
+                        } else {
                             correctoi1 = false;
                         }
                     }
                 }
-                if (correctoi1==true) {
+                if (correctoi1 == true) {
                     System.out.println("");
                     System.out.println("========================");
                     System.out.println("LA RESPUESTA ES CORRECTA");
-                    
-                }else{
+
+                } else {
                     System.out.println("");
                     System.out.println("==========================");
                     System.out.println("LA RESPUESTA ES INCORRECTA");
                 }
-                
+
                 //MOSTRARA EN PANTALLA LA RESPUESTA CORRECTA DEL SISTEMA
                 System.out.println("LA RESPUESTA CORRECTA ES: ");
                 System.out.println("");
@@ -729,8 +759,10 @@ class programap{
                     }
                     System.out.println("");
                 }
+                System.out.println("");
+                System.out.println("");
                 break;
-            
+
             //EN ESTE CASO SERA LAS OPERACIONES POR MEDIO DE LA OPCION B
             case 2:
                 System.out.println("=================================================");
@@ -756,18 +788,18 @@ class programap{
                     }
                     System.out.println("\n-----------------------------------------");
                 }
-                
+
                 //SE MOSTRARA EN PANTALLA LA FORMA DE INGRESAR LOS DATOS A LA MATRIZ
                 System.out.println("");
                 System.out.println("=================================================");
                 System.out.println("===Ingresar el resultado de la siguiente forma con lo que le piden:===");
                 for (int i = 0; i < 5; i++) {
                     for (int j = 0; j < 5; j++) {
-                        System.out.print("["+ i + ","+j+"]" + "\t|");
+                        System.out.print("[" + i + "," + j + "]" + "\t|");
                     }
                     System.out.println("\n-----------------------------------------");
                 }
-                
+
                 //LE PEDIRA AL USUARIO INGRESAR LOS VALORES ADENTRO DE LA MATRIZ
                 mri2 = new int[5][5];
                 for (int i = 0; i < 5; i++) {
@@ -776,7 +808,7 @@ class programap{
                         mri2[i][j] = sc.nextInt();
                     }
                 }
-                
+
                 //EN LA PANTALLA SE MOSTRARA LA MATRIZ INGRESADA POR EL USUARIO
                 System.out.println("====================================");
                 System.out.println("SU MATRIZ ES: ");
@@ -786,7 +818,7 @@ class programap{
                     }
                     System.out.println("");
                 }
-                
+
                 //EL SISTEMA REALIZA LA OPERACION DE SUMA ENTRE MATRICES
                 mri2c = new int[5][5];
                 for (int i = 0; i < 5; i++) {
@@ -794,29 +826,29 @@ class programap{
                         mri2c[i][j] = mai2[i][j] + mbi2[i][j];
                     }
                 }
-                
+
                 //VERIFICA SI EL RESULTADO DEL USUARIO ES LA MISMA QUE LA DEL SISTEMA
                 boolean correctoi2 = false;
                 for (int i = 0; i < 5; i++) {
                     for (int j = 0; j < 5; j++) {
                         if (mri2[i][j] == mri2c[i][j]) {
                             correctoi2 = true;
-                        }else{
+                        } else {
                             correctoi2 = false;
                         }
                     }
                 }
-                if (correctoi2==true) {
+                if (correctoi2 == true) {
                     System.out.println("");
                     System.out.println("========================");
                     System.out.println("LA RESPUESTA ES CORRECTA");
-                    
-                }else{
+
+                } else {
                     System.out.println("");
                     System.out.println("==========================");
                     System.out.println("LA RESPUESTA ES INCORRECTA");
                 }
-                
+
                 //IMPRIME EN PANTALLA LA RESPUESTA CORRECTA
                 System.out.println("LA RESPUESTA CORRECTA ES: ");
                 System.out.println("");
@@ -826,8 +858,10 @@ class programap{
                     }
                     System.out.println("");
                 }
+                System.out.println("");
+                System.out.println("");
                 break;
-                
+
             //EN ESTE CASO IMPRIMIRA LAS ACCIONES DE LA OPCION C
             case 3:
                 System.out.println("=================================================");
@@ -853,18 +887,18 @@ class programap{
                     }
                     System.out.println("\n-----------------------------------------");
                 }
-                
+
                 //LE MOSTRARA AL USUARIO COMO INGRESAR LOS DATOS A LA MATRIZ
                 System.out.println("");
                 System.out.println("=================================================");
                 System.out.println("===Ingresar el resultado de la siguiente forma con lo que le piden:===");
                 for (int i = 0; i < 5; i++) {
                     for (int j = 0; j < 5; j++) {
-                        System.out.print("["+ i + ","+j+"]" + "\t|");
+                        System.out.print("[" + i + "," + j + "]" + "\t|");
                     }
                     System.out.println("\n-----------------------------------------");
                 }
-                
+
                 //PEDIRA LOS DATOS AL USUARIO PARA GUARDARLO EN LA MATRIZ
                 mri3 = new int[5][5];
                 for (int i = 0; i < 5; i++) {
@@ -873,7 +907,7 @@ class programap{
                         mri3[i][j] = sc.nextInt();
                     }
                 }
-                
+
                 //LE MOSTRARÁ AL USUARIO LA MATRIZ A LA CUAL LE INGRESÓ LOS DATOS
                 System.out.println("====================================");
                 System.out.println("SU MATRIZ ES: ");
@@ -883,7 +917,7 @@ class programap{
                     }
                     System.out.println("");
                 }
-                
+
                 //EL SISTEMA REALIZA EL CALCULO DE LA SUMATORIA DE MATRICES
                 mri3c = new int[5][5];
                 for (int i = 0; i < 5; i++) {
@@ -891,29 +925,29 @@ class programap{
                         mri3c[i][j] = mai3[i][j] + mbi3[i][j];
                     }
                 }
-                
+
                 //EL SISTEMA VERIFICA SI LA RESPUESTA DEL USUARIO ES LA MISMA A LA DEL SISTEMA
                 boolean correctoi3 = false;
                 for (int i = 0; i < 5; i++) {
                     for (int j = 0; j < 5; j++) {
                         if (mri3[i][j] == mri3c[i][j]) {
                             correctoi3 = true;
-                        }else{
+                        } else {
                             correctoi3 = false;
                         }
                     }
                 }
-                if (correctoi3==true) {
+                if (correctoi3 == true) {
                     System.out.println("");
                     System.out.println("========================");
                     System.out.println("LA RESPUESTA ES CORRECTA");
-                    
-                }else{
+
+                } else {
                     System.out.println("");
                     System.out.println("==========================");
                     System.out.println("LA RESPUESTA ES INCORRECTA");
                 }
-                
+
                 //LE MOSTRARÁ EN PANTALLA LA RESPUESTA CORRECTA
                 System.out.println("LA RESPUESTA CORRECTA ES: ");
                 System.out.println("");
@@ -923,14 +957,21 @@ class programap{
                     }
                     System.out.println("");
                 }
+                System.out.println("");
+                break;
+            default:
+                System.out.println(" INGRESE LA OPCION CORRECTA ");
+                System.out.println("");
                 break;
         }
+
     }
     
     
     //-----------------------------------------PENALIZACIÓN DÍFICIL-------------------------------------
     //METODO PARA EL MENU DE LA PENALIZACION DÍFICIL    
     public static void penalizaciondificil() {
+        int opc = 0;
         Scanner sc = new Scanner(System.in);
         System.out.println("=================================================");
         System.out.println("===         PENALIZACIÓN DÍFICIL              ===");
@@ -939,8 +980,8 @@ class programap{
         System.out.println("=== 2. OPCION B                               ===");
         System.out.println("=== 3. OPCION C                               ===");
         System.out.println("=================================================");
-        int opcion = sc.nextInt();
-        switch (opcion) {
+        opc = sc.nextInt();
+        switch (opc) {
             case 1:
                 opcionad();
                 break;
@@ -949,6 +990,10 @@ class programap{
                 break;
             case 3:
                 opcioncd();
+                break;
+            default:
+                System.out.println(" INGRESA LA OPCION CORRECTA");
+                System.out.println("");
                 break;
         }
     }
@@ -1142,6 +1187,7 @@ class programap{
             System.out.println("==========================");
             System.out.println("SU RESPUESTA ES INCORRECTA");
         }
+        System.out.println("");
     }
     
     //METODO PARA LA OPCION B DE LA PENALIZACION DÍFICIL  
@@ -1334,6 +1380,7 @@ class programap{
             System.out.println("==========================");
             System.out.println("SU RESPUESTA ES INCORRECTA");
         }
+        System.out.println("");
     }
 
     //METODO PARA LA OPCION C DE LA PENALIZACION DÍFICIL
@@ -1557,6 +1604,8 @@ class programap{
             System.out.println("==========================");
             System.out.println("SU RESPUESTA ES INCORRECTA");
         }
+        System.out.println("");
+        System.out.println("");
     }
 
 }

@@ -17,6 +17,53 @@ class programap{
     //Variables para reportar y se manda a llamar la clase reportaje
     StringBuilder lapiz = new StringBuilder();
     Reportaje report = new Reportaje();
+    FileWriter fichero;
+    PrintWriter pw;
+    
+    public void bitacora(int pos, int dado){
+        fichero = null;
+        pw = null;
+        try {
+            fichero = new FileWriter("Bitacora.html");
+            pw = new PrintWriter(fichero);
+            pw.println("<!doctype html>\n" +
+"<html lang=\"en\">\n" +
+"  <head>\n" +
+"    <meta charset=\"utf-8\">\n" +
+"  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
+"  <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css\">\n" +
+"  <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js\"></script>\n" +
+"  <script src=\"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js\"></script>\n" +
+"  <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js\"></script>\n" +
+"  <title>Reporte 2 - Bitacora </title>\n" +
+"  </head>\n" +
+"  \n" +
+"  <body class=\"bg-warning text-white\">\n" +
+"    <div class=\"container-xl mt-6 border bg-dark text-white\">\n" +
+"        <h1 ><center>Reporte 2</center></h1>\n" +
+"    </div>\n" +
+"    <h1 class = \"text-dark\"><center>Bitácora</center></h1>\n"
+                    + "<div class=\"container-xl mt-6 border bg-primary text-white\">\n" +
+"        <h5> 0. Inicia la aplicacion</h5>");
+            for (int i = 1; i < pos; i++) {
+                pw.println("<h5>" + i + ". Ficha en la posicion " + i);
+                pw.println("<h5> Dado: " + dado + "</h5>");
+            }
+            pw.println("<h5>65. Fin del juego </h5>");
+            finbitacora();
+            System.out.println("Bitacora fue creada con exito");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (null != fichero) {
+                    fichero.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
+    }
     
     //Metodo para la parte inicial del documento de reportaje
     public void inicior1(){
@@ -65,7 +112,7 @@ class programap{
         //Se usa un do-while para que el menu se ejecute varias veces
         do {
             //
-            //try{
+            try{
                 System.out.println("============================================");                
                 System.out.println("===========     MENÚ PRINCIPAL    ==========");
                 System.out.println("== 1. Iniciar Juego                       ==");
@@ -95,17 +142,24 @@ class programap{
                     //SI NINGUNA DE LAS ANTERIORES SE CUMPLE ENTONCES MOSTRARA UN MENSAJE DE ERROR
                     default:
                         System.out.println("INGRESA LA OPCIÓN CORRECTA");
+                        emenu1();
                         break;
                 }
-//            }catch(Exception e){
-//                //MUESTRA UN MENSAJE DE ERROR PARA LOS QUE INGRESEN UN CARACTER NO NUMERICO
-//                leerm.nextLine();
-//                System.out.println("UNICAMENTE INGRESAR NUMEROS ENTEROS");
-//            }
+            }catch(Exception e){
+                //MUESTRA UN MENSAJE DE ERROR PARA LOS QUE INGRESEN UN CARACTER NO NUMERICO
+                leerm.nextLine();
+                System.out.println("UNICAMENTE INGRESAR NUMEROS ENTEROS");
+            }
         //EL CICLO TERMINA CUANDO ELIJAN LA OPCION 4
         }while (opcion != 4);
     }
-    
+    public void emenu1(){
+        lapiz.append("<div class=\"container p-3 my-3 bg-danger text-white\">\n" +
+"        <h4>\n" +
+"            <center>Ha ingresado una opcion incorrecta</center>\n" +
+"        </h4>\n" +
+"    </div>");
+    }
     static int[][] tablero = new int[8][8];
     static String[][] movimiento = new String[8][8];
     static int[][] penalizaciones = new int[8][8];
@@ -155,7 +209,7 @@ class programap{
         movimiento[7][7] = "@";
         
         //VARIABLE OPCION
-        int o;
+        int o = 0;
         //VARIABLE PARA EL NUMERO QUE VA A TOMAR COMO BASE PARA EL MOVIMIENTO
         int base = 1;
         
@@ -181,17 +235,15 @@ class programap{
             }
         
         do {
-            
+            try{
             
             //MENU PARA DAR INSTRUCCIONES DEL JUEGO
             System.out.println("¿Que quiere hacer?");
             System.out.println("1. Tirar el dado");
-            System.out.println("2. Pausa");
             o = leer.nextInt();
             
             //VARIABLE PARA GUARDAR LO QUE DEVOLVIO LA FUNCION DADO
             int d = Dado();
-            
             //VALIDAR LA OPCION 1
             if (o == 1) {                
                 System.out.println("======================================================================");
@@ -210,12 +262,15 @@ class programap{
                 //La variable base va a ser igual a la suma de ese numero con lo que muestre el dado
                 base = base + d;
                 //Se crea una variable String para leer la duncion posicion
-                String sp = posicion(base);
+                String sp = posicion(base);                
+                
                 //Se guarda en un arreglo de string los numeros sacados de la funcion
                 String[] coordenadas = sp.split(",");
                 //Se guarda las coordenadas de la nueva posicion de la ficha
                 int x = Integer.parseInt(coordenadas[0]);
                 int y = Integer.parseInt(coordenadas[1]);
+                bitacora(base, d);
+                
                 //SI EL TABLERO NO PASA DE 64 ENTONCES QUE VAYA MOVIENDOSE LA FICHA
                 if (y < 8) {
                     //IMPRIME LA FICHA
@@ -228,7 +283,7 @@ class programap{
                             } else {
                                 System.out.print("  " + tablero[i][j] + "\t|");
                             }
-
+                            
                         }
                         System.out.println("");
                         // IMPRIMIR LA MATRIZ DE MOVIMIENTOS
@@ -250,6 +305,7 @@ class programap{
                                  * SI ESTA EN LA FILA 2, 1 Y 0: SE LLAMA A LA PENALIZACIÓN DIFICIL
                                 **/
                                 if (i == x && j == y) {
+                                    
                                     if (i == 0 || x == 0) {
                                         penalizaciondificil();
                                     }else if (i == 1 || x == 1) {
@@ -308,9 +364,11 @@ class programap{
             }else{
                 System.out.println("");
             }            
-            
-            
-        } while (o == 1 || o != 2);        
+            }catch(Exception e){
+                leer.nextLine();
+                System.out.println("INGRESE SOLO ENTEROS");
+            }            
+        } while (o == 1 || o !=1);        
     }
      
     //FUNCION PARA RETORNAR UN VALOR ALEATORIO ENTRE 2 Y 6
@@ -2466,6 +2524,16 @@ class programap{
         report.archivonuevo(lapiz.toString(), "Reporte1.html");
     }
     public void finaldoc1(){
+        lapiz.append("\"<div class=\\\"container p-3 my-3 bg-warning text-body\\\">\\n\" +\n" +
+"\"        <h4>\\n\" +\n" +
+"\"            <center>Opcion de Pausa no disponible :c</center>\\n\" +\n" +
+"\"        </h4>\\n\" +\n" +
+"\"    </div>\\n\" +\n" +
+"\"    <div class=\\\"container p-3 my-3 bg-warning text-body\\\">\\n\" +\n" +
+"\"        <h4>\\n\" +\n" +
+"\"            <center>Opcion de Reanudar juego no disponible :c</center>\\n\" +\n" +
+"\"        </h4>\\n\" +\n" +
+"\"    </div>\"");
         lapiz.append("</div>\n" +
 "    <p></p>\n" +
 "    <div class=\"container p-3 my-3 bg-dark text-white\">\n" +
@@ -2483,5 +2551,15 @@ class programap{
 "            <center>NO HA INICIADO EL JUEGO O NO ENTRO A ESTA PENALIZACION</center>\n" +
 "        </h4>\n" +
 "    </div>");
+    }
+    public void finbitacora(){
+        
+        pw.println("<div class=\"container p-3 my-3 bg-dark text-white\">\n" +
+"        <h4>Reporte 2 - Practica 1 IPC1-D</h4>\n" +
+"      <p>Bitácora generada por el programa del alumno Rodrigo Alejandro Hernández de León</p>\n" +
+"      <p> Carnet: 201900042</p>\n" +
+"    </div>\n" +
+"  </body>\n" +
+"</html>");
     }
 }

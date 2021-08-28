@@ -1290,7 +1290,7 @@ class programap{
     //METODO PARA LA OPCION A DE LA PENALIZACION DÍFICIL
         //MATRICES A Y B DEFINIDAS
         double[][] matriza1 = {{5, 10, 1, 3}, {9, 14, 2, 6}, {7, 8, 15, 3}, {6, 8, 9, 2}};
-        double[][] matrizb1 = {{5, 13, 9, 4}, {1, 9, 6, 3}, {8, 11, 69, 33}, {25, 6, 7, 4}};
+        double[][] matrizbp1 = {{5, 13, 9, 4}, {1, 9, 6, 3}, {8, 11, 69, 33}, {25, 6, 7, 4}};
         //MATRIZ INGRESADA POR EL USUARIO
         double[][] matriziu1 = new double[4][4];
         //MATRIZ RESULTADO
@@ -1299,10 +1299,9 @@ class programap{
         double[][] matrizin1 = new double[4][4];
         double[][] inversa1 = new double[4][4];
         double pivote1;
+    double[][] matrizb1 = {{5, 13, 9, 4}, {1, 9, 6, 3}, {8, 11, 69, 33}, {25, 6, 7, 4}};
     public void opcionad() {    
         double extremos;
-        double[][] matrizbn1 = {{5, 13, 9, 4}, {1, 9, 6, 3}, {8, 11, 69, 33}, {25, 6, 7, 4}}; 
-        Scanner leer = new Scanner(System.in);
         //MOSTRANDO LA INFORMACION EN LA PANTALLA PARA EL USUARIO
         System.out.println("=================================================");
         System.out.println("===  Obten la División de las Matrices A y B  ===");
@@ -1367,11 +1366,11 @@ class programap{
         //SE APLICA GAUUS JORDAN PARA ENCONTRAR LA MATRIZ INVERSA DE B
         for (int i = 0; i < 4; i++) {
             //PASO 1: IDENTIFICAR CUAL ES EL PIVOTE
-            pivote1 = matrizbn1[i][i];
+            pivote1 = matrizb1[i][i];
             //PASO 2: CONVERTIR TODOS LOS PIVOTES A 1
             for (int j = 0; j < 4; j++) {
                 //Se divide toda la fila con el valor del pivote
-                matrizbn1[i][j] = matrizbn1[i][j] / pivote1;
+                matrizb1[i][j] = matrizb1[i][j] / pivote1;
                 matrizin1[i][j] = matrizin1[i][j] / pivote1;
             }
 
@@ -1380,11 +1379,11 @@ class programap{
                 //SE PONE I SEA DIFERENTE QUE K PARA QUE NO TOQUE LOS 1 DE LA MATRIZ B
                 if (i != k) {
                     //LOS EXTREMOS SON LOS NUMEROS QUE ESTAN EN LAS COLUMNAS QUE NO FORMAN PARTE DE LOS 1 EN DIAGONAL 
-                    extremos = matrizbn1[k][i];
+                    extremos = matrizb1[k][i];
                     for (int j = 0; j < 4; j++) {
                         //VA A RECORRER TODA LA FILA RESTANDO CON LA FILA DE CADA PIVOTE HASTA FORMAR EN LA MATRIZ B
                         //COMO LA MATRIZ IDENTIDAD Y LA MATRIZ IDENTIDAD SE TRANSFORMA A LA MATRIZ INVERSA
-                        matrizbn1[k][j] = matrizbn1[k][j] - extremos * matrizbn1[i][j];
+                        matrizb1[k][j] = matrizb1[k][j] - extremos * matrizb1[i][j];
                         matrizin1[k][j] = matrizin1[k][j] - extremos * matrizin1[i][j];
                     }
 
@@ -1460,7 +1459,7 @@ class programap{
             lapiz.append("<tr>");
             for (int j = 0; j < 4; j++) {
                 lapiz.append("<td> \n");
-                lapiz.append("\t" + matrizb1[i][j]);
+                lapiz.append("\t" + matrizbp1[i][j]);
                 lapiz.append("</td>\n");
             }
             lapiz.append("</tr>");
@@ -1479,7 +1478,7 @@ class programap{
             lapiz.append("<tr>");
             for (int j = 0; j < 4; j++) {
                 lapiz.append("<td> \n");
-                lapiz.append("\t" + matrizb1[i][j]);
+                lapiz.append("\t" + matrizbp1[i][j]);
                 lapiz.append("</td>\n");
             }
             for (int j = 0; j < 4; j++) {
@@ -1509,16 +1508,16 @@ class programap{
                 if (i == j) {
                     if (matrizb1[i][j] == 0) {
                         lapiz.append("<td class=\" table-dark text-danger\"> \n");
-                        lapiz.append("\t" + matrizb1[i][j]);
+                        lapiz.append("\t" + matrizbp1[i][j]);
                         lapiz.append("</td>\n");
                     }else{
                         lapiz.append("<td class=\" table-dark\"> \n");
-                        lapiz.append("\t" + matrizb1[i][j]);
+                        lapiz.append("\t" + matrizbp1[i][j]);
                         lapiz.append("</td>\n");
                     }                    
                 }else{
                     lapiz.append("<td> \n");
-                    lapiz.append("\t" + matrizb1[i][j]);
+                    lapiz.append("\t" + matrizbp1[i][j]);
                     lapiz.append("</td>\n");
                 }
             }
@@ -1538,11 +1537,11 @@ class programap{
             for (int j = 0; j < 4; j++) {
                 if (i == j) {
                     lapiz.append("<td class=\" table-dark\"> \n");
-                    lapiz.append("\t" + matrizb1[i][j] + " / " + matrizb1[i][j]);
+                    lapiz.append("\t" + matrizbp1[i][j] + " / " + matrizbp1[i][j]);
                     lapiz.append("</td>\n");                   
                 }else{
                     lapiz.append("<td> \n");
-                    lapiz.append("\t" + matrizb1[i][j] + " / " + matrizb1[i][i]);
+                    lapiz.append("\t" + matrizbp1[i][j] + " / " + matrizbp1[i][i]);
                     lapiz.append("</td>\n");
                 }
             }
@@ -1553,7 +1552,7 @@ class programap{
                     matrizid[i][j] = 0;
                 }
                 lapiz.append("<td> \n");
-                lapiz.append("\t" + matrizid[i][j] + " / " + matrizb1[i][i]);
+                lapiz.append("\t" + matrizid[i][j] + " / " + matrizbp1[i][i]);
                 lapiz.append("</td>\n");                
             }
             lapiz.append("</tr>");
@@ -2454,7 +2453,7 @@ class programap{
         if (mri3c != null) {
             picr1();
         }
-        if (matrizr1 != null) {
+        if (matrizr1 != null || matrizin1 !=null) {                
             reop1d();
         }
         if (matrizr2 != null) {

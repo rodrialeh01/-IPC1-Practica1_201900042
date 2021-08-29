@@ -2491,6 +2491,7 @@ class programap{
 "        </div>\n" +
 "        <p></p>");
     }
+    //METODO PARA UNIR EL REPORTE AL LLAMAR LOS METODOS
     public void r1(){
         inicior1();
         if (b1 != 0 && beta1 !=0 && gama1 !=0) {
@@ -2511,7 +2512,7 @@ class programap{
         if (mri3c != null) {
             picr1();
         }
-        if (matrizr1 != null || matrizin1 !=null) {                
+        if (matrizr1 != null ) {                
             reop1d();
         }
         if (matrizr2 != null) {
